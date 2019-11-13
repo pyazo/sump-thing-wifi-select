@@ -11,6 +11,9 @@ const styles = theme => ({
     paddingTop: theme.spacing(10),
     marginBottom: theme.spacing(1),
   },
+  wifiList: {
+    width: '100%',
+  },
 });
 
 export default styles;

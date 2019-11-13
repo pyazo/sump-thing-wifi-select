@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -60,8 +61,15 @@ export default function Home() {
           </>
         )
       }
-      <Grid>
-        <List>
+      <Grid item xs={12}>
+        <List
+          className={classes.wifiList}
+          subheader={(
+            <ListSubheader>
+            Select a wifi network
+            </ListSubheader>
+        )}
+        >
           {
             data.map((d) => <WiFi {...d} />)
           }
