@@ -1,9 +1,10 @@
 // The main config for webpack, you probably don't need to edit this.
 const webpack = require('webpack');
 const path = require('path');
-const rules = require('./rules');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('HappyPack');
+
+const rules = require('./rules');
 
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || '8080';
@@ -57,9 +58,6 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'globals.API_URL': JSON.stringify('http://localhost:5000'),
-    }),
     new HtmlWebpackPlugin({
       template: 'frontend/index.html',
       files: {

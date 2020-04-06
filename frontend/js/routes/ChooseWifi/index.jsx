@@ -24,24 +24,39 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const getNetworks = async () => {
-    try {
-      setLoading(true);
+    // try {
+    //   setLoading(true);
 
-      const request = await fetch('http://192.168.1.1/networks');
+    //   const request = await fetch('http://192.168.1.1/networks');
 
-      const json = await request.json();
+    //   const json = await request.json();
 
-      setLoading(false);
+    //   setLoading(false);
 
-      if (json.networks) {
-        json.networks.sort((a, b) => b.strength - a.strength);
-        setNetworks(json.networks);
-      }
-    } catch (err) {
-      setLoading(false);
+    //   if (json.networks) {
+    //     json.networks.sort((a, b) => b.strength - a.strength);
+    //     setNetworks(json.networks);
+    //   }
+    // } catch (err) {
+    //   setLoading(false);
 
-      console.error(err);
-    }
+    //   console.error(err);
+    // }
+
+    setLoading(false);
+
+    setNetworks([
+      {
+        name: 'Test Network',
+        hasPassword: true,
+        strength: 4,
+      },
+      {
+        name: 'The Promise LAN 2.4Ghz_EXT',
+        hasPassword: true,
+        strength: 3,
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -94,7 +109,7 @@ export default function Home() {
           )}
             >
               {
-              networks.map((n) => <WiFi {...n} />)
+              networks.map((n) => <WiFi key={n.name} {...n} />)
             }
             </List>
           </Grid>

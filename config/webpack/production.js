@@ -1,8 +1,10 @@
 // This webpack config applies to production code
 const webpack = require('webpack');
 const path = require('path');
-const rules = require('./rules');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HappyPack = require('HappyPack');
+
+const rules = require('./rules');
 
 module.exports = {
   mode: 'production',
@@ -21,6 +23,7 @@ module.exports = {
   },
   module: { rules },
   optimization: {
+    minimize: true,
     splitChunks: {
       chunks: 'async',
       cacheGroups: {
@@ -32,22 +35,18 @@ module.exports = {
     },
   },
   plugins: [
+    new HappyPack({
+      threads: 4,
+      loaders: ['babel-loader'],
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        drop_console: true,
-        drop_debugger: true,
-      },
-    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: './frontend/index.html',
       files: {
         js: ['main.js'],
       },

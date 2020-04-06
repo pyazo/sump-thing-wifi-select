@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import Lock from '@material-ui/icons/Lock';
 
 import WiFiStrength1 from '@material-ui/icons/SignalWifi1BarOutlined';
 import WiFiStrength2 from '@material-ui/icons/SignalWifi2BarOutlined';
@@ -16,6 +14,8 @@ import LockedWiFiStrength1 from '@material-ui/icons/SignalWifi1BarLock';
 import LockedWiFiStrength2 from '@material-ui/icons/SignalWifi2BarLock';
 import LockedWiFiStrength3 from '@material-ui/icons/SignalWifi3BarLock';
 import LockedWiFiStrength4 from '@material-ui/icons/SignalWifi4BarLock';
+
+import EnterPassword from './EnterPassword';
 
 const wifi = [
   <WiFiStrength1 />,
@@ -32,18 +32,26 @@ const lockedWifi = [
 ]
 
 export default function WiFi({ name, hasPassword, strength }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <ListItem button divider>
-      <ListItemText primary={name} />
-      <ListItemIcon>
-        { hasPassword ? lockedWifi[strength - 1] : wifi[strength - 1] }
-      </ListItemIcon>
-    </ListItem>
+    <>
+      {
+       hasPassword
+        && <EnterPassword open={open} name={name} handleClose={() => setOpen(false)} />
+      }
+      <ListItem button divider onClick={() => setOpen(true)}>
+        <ListItemText primary={name} />
+        <ListItemIcon>
+          { hasPassword ? lockedWifi[strength - 1] : wifi[strength - 1] }
+        </ListItemIcon>
+      </ListItem>
+    </>
   );
 }
 
 WiFi.propTypes = {
   name: PropTypes.string.isRequired,
   hasPassword: PropTypes.bool.isRequired,
-  strength: PropTypes.number.isRequired,
+  strength: PropTypes.string.isRequired,
 };
