@@ -7,13 +7,13 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './App';
-import routes from './routes';
+import Routes from './routes';
 
 
 render(
   <Router>
     <App>
-      { routes }
+      <Routes />
     </App>
   </Router>,
   document.getElementById('root')
