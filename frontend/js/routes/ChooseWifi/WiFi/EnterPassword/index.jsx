@@ -45,7 +45,7 @@ export default function EnterPassword({ open, name, handleClose }) {
 
       window.localStorage.setItem('uid', data.uid);
 
-      setLoading(false);
+      window.location = '/connected';
     } catch (err) {
       console.error(err);
 
