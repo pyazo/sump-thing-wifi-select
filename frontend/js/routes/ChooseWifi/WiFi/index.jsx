@@ -15,7 +15,7 @@ import LockedWiFiStrength2 from '@material-ui/icons/SignalWifi2BarLock';
 import LockedWiFiStrength3 from '@material-ui/icons/SignalWifi3BarLock';
 import LockedWiFiStrength4 from '@material-ui/icons/SignalWifi4BarLock';
 
-import EnterPassword from './EnterPassword';
+import ConnectModal from './ConnectModal';
 
 const wifi = [
   <WiFiStrength1 />,
@@ -36,10 +36,12 @@ export default function WiFi({ name, hasPassword, strength }) {
 
   return (
     <>
-      {
-       hasPassword
-        && <EnterPassword open={open} name={name} handleClose={() => setOpen(false)} />
-      }
+      <ConnectModal
+        hasPassword={hasPassword}
+        open={open}
+        name={name}
+        handleClose={() => setOpen(false)}
+      />
       <ListItem button divider onClick={() => setOpen(true)}>
         <ListItemText primary={name} />
         <ListItemIcon>

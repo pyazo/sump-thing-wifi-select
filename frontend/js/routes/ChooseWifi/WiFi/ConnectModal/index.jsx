@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -20,7 +20,7 @@ import styles from './style';
 
 const useStyles = makeStyles(styles);
 
-export default function EnterPassword({ open, name, handleClose }) {
+export default function ConnectModal({ hasPassword, open, name, handleClose }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
@@ -54,6 +54,12 @@ export default function EnterPassword({ open, name, handleClose }) {
     }
   };
 
+  useEffect(() => {
+    if (!hasPassword) {
+      connect();
+    }
+  }, []);
+
   return (
     <Dialog fullScreen open={open} onClose={handleClose}>
       <Grid container justify="center">
@@ -66,18 +72,18 @@ export default function EnterPassword({ open, name, handleClose }) {
         </Grid>
         <Grid item xs={12}>
           <Typography align="center" variant="h4">
-            Enter Password
+            Connect
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography align="center" variant="h6">
-            for
+            to
             {' '}
             {name}
           </Typography>
         </Grid>
         {
-          !loading
+          !loading && hasPassword
           && (
             <>
               <Grid item xs={10} className={classes.password}>
@@ -137,7 +143,8 @@ export default function EnterPassword({ open, name, handleClose }) {
   );
 }
 
-EnterPassword.propTypes = {
+ConnectModal.propTypes = {
+  hasPassword: PropTypes.bool.isRequired,
   open: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,
