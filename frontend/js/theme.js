@@ -27,10 +27,7 @@ const baseTheme = {
     },
   },
   typography: {
-    fontFamily: [
-      'Montserrat',
-      'sans-serif',
-    ].join(','),
+    fontFamily: 'sans-serif',
   },
 };
 
