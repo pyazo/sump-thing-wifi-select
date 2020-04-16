@@ -55,10 +55,10 @@ export default function ConnectModal({ hasPassword, open, name, handleClose }) {
   };
 
   useEffect(() => {
-    if (!hasPassword) {
+    if (open && !hasPassword) {
       connect();
     }
-  }, []);
+  }, [open]);
 
   return (
     <Dialog fullScreen open={open} onClose={handleClose}>
